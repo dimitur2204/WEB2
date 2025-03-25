@@ -1,200 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic-Tac-Toe</title>
     <style>
-        body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
+      body {
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-    h1 {
-    margin-bottom: 20px;
-    }
+      h1 {
+        margin-bottom: 20px;
+      }
 
-    h2 {
-    margin-top: 30px;
-    margin-bottom: 10px;
-    }
+      h2 {
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
 
-    .game-board {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    }
+      .game-board {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+      }
 
-    .board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-gap: 5px;
-    margin-bottom: 10px;
-    }
+      .board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 5px;
+        margin-bottom: 10px;
+      }
 
-    .cell {
-    width: 100px;
-    height: 100px;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 60px;
-    cursor: pointer;
-    }
+      .cell {
+        width: 100px;
+        height: 100px;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 60px;
+        cursor: pointer;
+      }
 
-    .cell:hover {
-    background-color: #ddd;
-    }
+      .cell:hover {
+        background-color: #ddd;
+      }
 
-    .status {
-    font-size: 20px;
-    margin-bottom: 10px;
-    }
+      .status {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
 
-    button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="oo.html">Object oriented</a></li>
+        <li><a href="fun.html">Functional</a></li>
+      </ul>
+    </nav>
     <h1>Tic-Tac-Toe</h1>
 
     <h2>Functional version</h2>
 
     <div id="fp-game" class="game-board">
-        <div class="board">
-            <div class="cell" data-index="0">
-            </div>
+      <div class="board">
+        <div class="cell" data-index="0"></div>
 
-            <div class="cell" data-index="1">
-            </div>
+        <div class="cell" data-index="1"></div>
 
-            <div class="cell" data-index="2">
-            </div>
+        <div class="cell" data-index="2"></div>
 
-            <div class="cell" data-index="3">
-            </div>
+        <div class="cell" data-index="3"></div>
 
-            <div class="cell" data-index="4">
-            </div>
+        <div class="cell" data-index="4"></div>
 
-            <div class="cell" data-index="5">
-            </div>
+        <div class="cell" data-index="5"></div>
 
-            <div class="cell" data-index="6">
-            </div>
+        <div class="cell" data-index="6"></div>
 
-            <div class="cell" data-index="7">
-            </div>
+        <div class="cell" data-index="7"></div>
 
-            <div class="cell" data-index="8">
-            </div>
-        </div>
+        <div class="cell" data-index="8"></div>
+      </div>
 
-        <div class="status">
-        </div>
-        <button id="fp-restart">Restart</button>
+      <div class="status"></div>
+      <button id="fp-restart">Restart</button>
     </div>
     <script>
-        const createTicTacToe = (gameElementId, restartButtonId) => {
-    let board = ["", "", "", "", "", "", "", "", ""];
-    let currentPlayer = "X";
-    let gameActive = true;
-    const gameElement = document.getElementById(gameElementId);
-    const statusDisplay = gameElement.querySelector(".status");
-    const cells = gameElement.querySelectorAll(".cell");
-    const restartButton = document.getElementById(restartButtonId);
-    const winningConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-    ];
+      const winningConditions = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
 
-    const updateStatus = () => {
-    statusDisplay.innerText = `It's ${currentPlayer}'s turn`;
-    };
+      const updateBoard = (board, index, currentPlayer) => {
+        if (board[index] !== "") {
+          return board;
+        }
+        return [
+          ...board.slice(0, index),
+          currentPlayer,
+          ...board.slice(index + 1),
+        ];
+      };
 
-    const handleResultValidation = () => {
-    let roundWon = false;
-    for (let i = 0; i <= 7; i++) {
-      const winCondition = winningConditions[i];
-      const a = board[winCondition[0]];
-      const b = board[winCondition[1]];
-      const c = board[winCondition[2]];
-      if (a === "" || b === "" || c === "") {
-        continue;
-      }
-      if (a === b && b === c) {
-        roundWon = true;
-        break;
-      }
-    }
+      const checkWin = (board, currentPlayer) => {
+        return winningConditions.some((condition) =>
+          condition.every((index) => board[index] === currentPlayer),
+        );
+      };
 
-    if (roundWon) {
-      statusDisplay.innerText = `Player ${currentPlayer} has won!`;
-      gameActive = false;
-      return;
-    }
+      const checkDraw = (board) => {
+        return !board.some((cell) => cell === "");
+      };
 
-    let roundDraw = !board.includes("");
-    if (roundDraw) {
-      statusDisplay.innerText = `Game ended in a draw!`;
-      gameActive = false;
-      return;
-    }
+      const getStatus = (board, currentPlayer) => {
+        if (checkWin(board, currentPlayer)) {
+          return `Player ${currentPlayer} has won!`;
+        }
+        if (checkDraw(board)) {
+          return `Game ended in a draw!`;
+        }
+        return `It's ${currentPlayer}'s turn`;
+      };
 
-    handlePlayerChange();
-    };
+      const registerClickListener = (el, listener) => {
+        el.addEventListener("click", listener);
+      };
 
-    const handlePlayerChange = () => {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    updateStatus();
-    };
+      const createTicTacToe = (gameElementId, restartButtonId) => {
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let gameActive = true;
+        const gameElement = document.getElementById(gameElementId);
+        const statusDisplay = gameElement.querySelector(".status");
+        const cells = gameElement.querySelectorAll(".cell");
+        const restartButton = document.getElementById(restartButtonId);
 
-    const handleCellClick = (cellIndex) => {
-    if (!gameActive || board[cellIndex] !== "") {
-      return;
-    }
+        const renderBoard = (boardState) => {
+          cells.forEach((cell, index) => {
+            cell.innerText = boardState[index];
+          });
+        };
 
-    board[cellIndex] = currentPlayer;
-    cells[cellIndex].innerText = currentPlayer;
-    handleResultValidation();
-    };
+        const updateStatus = (boardState, player) => {
+          statusDisplay.innerText = getStatus(boardState, player);
+        };
 
-    const handleRestartGame = () => {
-    board = ["", "", "", "", "", "", "", "", ""];
-    currentPlayer = "X";
-    gameActive = true;
-    cells.forEach((cell) => (cell.innerText = ""));
-    updateStatus();
-    };
+        const handleCellClick = (cellIndex) => {
+          if (!gameActive || board[cellIndex] !== "") {
+            return;
+          }
 
-    const initializeGame = () => {
-    cells.forEach((cell, index) => {
-      cell.addEventListener("click", () => handleCellClick(index));
-    });
-    restartButton.addEventListener("click", handleRestartGame);
-    updateStatus();
-    };
+          const newBoard = updateBoard(board, cellIndex, currentPlayer);
+          board = newBoard;
+          renderBoard(board);
 
-    initializeGame();
+          if (checkWin(board, currentPlayer)) {
+            statusDisplay.innerText = `Player ${currentPlayer} has won!`;
+            gameActive = false;
+            return;
+          }
 
-    return {}; // Return an empty object as the API (no public methods)
-    };
+          if (checkDraw(board)) {
+            statusDisplay.innerText = `Game ended in a draw!`;
+            gameActive = false;
+            return;
+          }
 
-    const fpGame = createTicTacToe("fp-game", "fp-restart");
+          currentPlayer = currentPlayer === "X" ? "O" : "X";
+          updateStatus(board, currentPlayer);
+        };
+
+        const handleRestartGame = () => {
+          board = ["", "", "", "", "", "", "", "", ""];
+          currentPlayer = "X";
+          gameActive = true;
+          renderBoard(board);
+          updateStatus(board, currentPlayer);
+        };
+
+        const initializeGame = () => {
+          cells.forEach((cell, index) => {
+            registerClickListener(cell, () => handleCellClick(index));
+          });
+          registerClickListener(restartButton, handleRestartGame);
+          renderBoard(board);
+          updateStatus(board, currentPlayer);
+        };
+
+        initializeGame();
+
+        return {};
+      };
+
+      const fpGame = createTicTacToe("fp-game", "fp-restart");
     </script>
-</body>
+  </body>
 </html>

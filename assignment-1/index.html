@@ -1,50 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>Tic-Tac-Toe</h1>
+    <style>
+        body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
 
-    <h2>Object-Oriented Version</h2>
-    <div id="oop-game" class="game-board">
-      <div class="board">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-      </div>
-      <div class="status"></div>
-      <button id="oop-restart">Restart</button>
-    </div>
+    h1 {
+    margin-bottom: 20px;
+    }
 
-    <h2>Functional Version</h2>
-    <div id="fp-game" class="game-board">
-      <div class="board">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-      </div>
-      <div class="status"></div>
-      <button id="fp-restart">Restart</button>
-    </div>
+    h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    }
 
-    <script src="oop.js"></script>
-    <script src="fp.js"></script>
-  </body>
+    .game-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    }
+
+    .board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    margin-bottom: 10px;
+    }
+
+    .cell {
+    width: 100px;
+    height: 100px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    cursor: pointer;
+    }
+
+    .cell:hover {
+    background-color: #ddd;
+    }
+
+    .status {
+    font-size: 20px;
+    margin-bottom: 10px;
+    }
+
+    button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="oo.html">Object oriented</a></li>
+                <li><a href="fun.html">Functional</a></li> 
+            </ul>
+        </nav>
+</body>
 </html>
 
