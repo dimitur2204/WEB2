@@ -4,7 +4,7 @@ import PokemonDetails from "../components/PokemonDetails";
 import About from "../pages/About";
 
 const AppRouter = () => (
-    <Router>
+    <Router basename="/WEB2">
         <Routes>
             <Route path="/" element={<Pokedex />} />
             <Route path="/pokemon/:id" element={<PokemonDetails />} />
