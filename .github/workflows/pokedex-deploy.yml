@@ -30,28 +30,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Copy files from pokedex
-        run: cp ./pokedex/dist .
-      - name: Copy files from pokedex
-        run: cp ./pokedex/package.json .
-      - name: Copy files from pokedex
-        run: cp ./pokedex/package-lock.json .
+        working-directory: ./pokedex
       - name: Set up Node
         uses: actions/setup-node@v4
+        working-directory: ./pokedex
         with:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
+        working-directory: ./pokedex
         run: npm ci
       - name: Build
+        working-directory: ./pokedex
         run: npm run build
       - name: Setup Pages
+        working-directory: ./pokedex
         uses: actions/configure-pages@v4
       - name: Upload artifact
+        working-directory: ./pokedex
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
           path: './dist'
       - name: Deploy to GitHub Pages
+        working-directory: ./pokedex
         id: deployment
         uses: actions/deploy-pages@v4
