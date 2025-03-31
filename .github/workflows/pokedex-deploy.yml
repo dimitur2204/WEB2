@@ -31,10 +31,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Copy files from pokedex
-        run: |
-        cp ./pokedex/dist .
-        cp ./pokedex/package.json .
-        cp ./pokedex/package-lock.json .
+        run: cp ./pokedex/dist .
+      - name: Copy files from pokedex
+        run: cp ./pokedex/package.json .
+      - name: Copy files from pokedex
+        run: cp ./pokedex/package-lock.json .
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
