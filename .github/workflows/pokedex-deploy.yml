@@ -21,12 +21,13 @@ concurrency:
   cancel-in-progress: true
 
 
+defaults:
+  run:
+    working-directory: pokedex
+
 jobs:
   # Single deploy job since we're just deploying
   deploy:
-    defaults:
-      run:
-        working-directory: pokedex
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -47,8 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload dist folder
-          path: './dist'
+          path: 'dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
